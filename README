@@ -15,96 +15,47 @@ Branch created April 25, 2017 mainly for the purpose of making the existing vers
 
 Version 1.3
 ------------
-Branch created September 16, 2014 and slowly developed for more robust and DRC-clean output, along with numerous bugfixes.  The underlying algorithm is essentially unchanged from version
-1.2.
+Branch created September 16, 2014 and slowly developed for more robust and DRC-clean output, along with numerous bugfixes.  The underlying algorithm is essentially unchanged from version 1.2.
 
 Version 1.2
 ------------
-Branch of 1.1 that puts qrouter in a Tcl/Tk
-environment and includes routines to generate
-and draw into a graphics window.  Code
-reorganized into three main sections that are
-called from the Tcl command line as "stage1",
-"stage2", and "write_def".  The front-end
-process of reading in the LEF and DEF files
-and configuring the routing environment will
-be added to the command set, eventually.
+Branch of 1.1 that puts qrouter in a Tcl/Tk environment and includes routines to generate and draw into a graphics window. Code reorganized into three main sections that are called from the Tcl command line as "stage1",
+"stage2", and "write_def".  The front-end process of reading in the LEF and DEF files and configuring the routing environment will be added to the command set, eventually.
 
-Based on analysis from the visualization of
-the router, the code has been rewritten to
-speed up the routing during multi-tap (more
-than 2 connections) nets, so that previous
-search results remain in place after each
-route, avoiding redundant searching.  This
-speeds up qrouter by a factor of about 2x.
-A masking function that limits routes
-to a specific defined portion of the layout
-speeds up qrouter by a factor of about 30x.
+Based on analysis from the visualization of the router, the code has been rewritten to speed up the routing during multi-tap (more than 2 connections) nets, so that previous
+search results remain in place after each route, avoiding redundant searching.  This speeds up qrouter by a factor of about 2x. A masking function that limits routes
+to a specific defined portion of the layout speeds up qrouter by a factor of about 30x.
 
 Version 1.1
 ------------
-Second major release.  Revised the "proute"
-structure so that its position information
-refers to the position of the structure itself
-and not of the predecessor.  This requires
-setting up proute structures for every point on
-the source net, but makes it possible to specify
-one or more alternate predecessors for each
+Second major release.  Revised the "proute" structure so that its position information refers to the position of the structure itself and not of the predecessor.  This requires
+setting up proute structures for every point on the source net, but makes it possible to specify one or more alternate predecessors for each
 potential route position.
 
-Added handling of routes with larger size and
-pitch on the higher layers.  Added handling
-of technologies that do not allow contacts
-to be stacked arbitrarily.  Some preliminary
-work in search optimization.  Finding a viable
-route (any viable route) quickly is the key to 
-setting a bound on cost early and prevent
-multiple passes over many points.
+Added handling of routes with larger size and pitch on the higher layers.  Added handling of technologies that do not allow contacts to be stacked arbitrarily.  Some preliminary
+work in search optimization.  Finding a viable route (any viable route) quickly is the key to setting a bound on cost early and prevent multiple passes over many points.
 
-Added code for detailed analysis of port
-geometry and taking steps necessary to avoid
-generating DRC errors.
+Added code for detailed analysis of port geometry and taking steps necessary to avoid generating DRC errors.
 
-Redesigned internal structures so that nodes
-are not in an independent list, but only listed
-under their assigned net.  Routes are assigned
-to nets, not to nodes.  Added the ability to read
-in existing route geometry and add it to the
-database.
+Redesigned internal structures so that nodes are not in an independent list, but only listed under their assigned net.  Routes are assigned to nets, not to nodes.  Added the ability to read
+in existing route geometry and add it to the database.
 
 Version 1.0
 ------------
-First release.  This is work in progess on a
-professional-grade multi-layer maze router.
-First release implements the standard Lee
-algorithm.  However, a modified Lee algorithm
-is used that presents all nodes of the network
-(other than the source node) as targets.  As
-each target node is reached, in order of lowest
-cost, the target node and its route to the
-source are added to the source node, and the
-process repeated until there are no more target
-nodes.
+First release.  This is work in progess on a professional-grade multi-layer maze router.First release implements the standard Lee algorithm.  However, a modified Lee algorithm
+is used that presents all nodes of the network (other than the source node) as targets.  As each target node is reached, in order of lowest cost, the target node and its route to the
+source are added to the source node, and the process repeated until there are no more target nodes.
 
-The implementation is geometry-aware, to the
-extent that all node and obstruction geometry
-is present in the LEF file used to define the
-standard cell macros.
+The implementation is geometry-aware, to the extent that all node and obstruction geometry is present in the LEF file used to define the standard cell macros.
 
-The implementation uses the open standard
-LEF and DEF formats.  Standard cell definitions
-and routing layer definitions are read in from
-the LEF file, and cell placement information
-and an unrouted network are read from the DEF
-file.  Output is a copy of the original input
-DEF file, annotated with the physical routes.
+The implementation uses the open standard LEF and DEF formats.  Standard cell definitions and routing layer definitions are read in from the LEF file, and cell placement information
+and an unrouted network are read from the DEF file.  Output is a copy of the original input DEF file, annotated with the physical routes.
 
 ----------------------------------------------
 Compilation & installation:
 ----------------------------------------------
 
-The system runs under autoconf, and so has
-the standard compile and install sequence:
+The system runs under autoconf, and so has the standard compile and install sequence:
 
 	./configure
 	make
@@ -135,7 +86,7 @@ Usage:
 
    qrouter [-noc] [-s <script_name>]
 
-     This is the normal invocation, where a
+     This is the normal invocation, where a      
      Tcl-script specified by <script_name>
      contains all of the configuration information,
      specifies where to read LEF and DEF files,
