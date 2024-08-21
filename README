@@ -3,11 +3,11 @@ Qrouter version 1.4
 Detail netlist router for ASICs
 (c) 2017 by Tim Edwards
 Released under Gnu Public License
-----------------------------------------------
+-------------------------------------------------
 
-----------------------------------------------
+-------------------------------------------------
 Release notes:
-----------------------------------------------
+-------------------------------------------------
 
 Version 1.4
 ------------
@@ -116,108 +116,50 @@ Usage:
 Completed development tasks:
 ----------------------------------------------
 
-1. New algorithm for routing nodes of a network,
-   in which route_segs calculates costs out from
-   source to any node in the network, settling
-   on the minimum, and this continues until there
-   are no nodes left to route.
+1. New algorithm for routing nodes of a network, in which route_segs calculates costs out from source to any node in the network, settling on the minimum, and this continues until there are no nodes left to route.
 
-2. Need to compute obstruction areas around nodes
-   and mark them (e.g., with a flag) so that they
-   can interpreted as obstructions when routing a
-   different net, and available space when routing
-   the node's net.
+2. Need to compute obstruction areas around nodes and mark them (e.g., with a flag) so that they can interpreted as obstructions when routing a different net, and available space when routing the node's net.
 
-3. Rework the crossover cost method.  Currently
-   it does not account for the vertical layer, and
-   so gives a high crossover cost to layers that
-   are more than one route level above a node and
-   would not block it.
+3. Rework the crossover cost method.  Currently it does not account for the vertical layer, and so gives a high crossover cost to layers that are more than one route level above a node and would not block it.
 
-4. Stub routing to nodes from unobstructed positions
-   smaller than the route pitch but outside of the
-   tap geometry.
+4. Stub routing to nodes from unobstructed positions smaller than the route pitch but outside of the tap geometry.
 
-5. Crossover costing removed for all terminals on
-   completed routes.
+5. Crossover costing removed for all terminals on completed routes.
 
-6. Replace linked list code with simpler linked
-   lists, no dependency on non-open-source
-   linked-list code.
+6. Replace linked list code with simpler linked lists, no dependency on non-open-source linked-list code.
 
-7. Added the ability to specify additional
-   obstruction areas in the route.cfg file.
+7. Added the ability to specify additional obstruction areas in the route.cfg file.
 
-8. Increased the route width to the width of a
-   via where the distance between a via and a
-   terminal is less than the route metal's
-   spacing rule.  This cannot be done with
-   normal routes in a DEF file, so it is added
-   on as a "specialnets" section.
+8. Increased the route width to the width of a via where the distance between a via and a terminal is less than the route metal's spacing rule.  This cannot be done with normal routes in a DEF file, so it is added on as a "specialnets" section.
 
-9. Collect all unroutable nets and route them
-   with other nets marked as high-cost instead
-   of obstructions.  Analyze all the resultant
-   collisions between nets, and proceed with an
-   iterative rip-up and reroute algorithm.
+9. Collect all unroutable nets and route them with other nets marked as high-cost instead of obstructions.  Analyze all the resultant collisions between nets, and proceed with an iterative rip-up and reroute algorithm.
 
-10. When a net is ripped up to remove it from
-   the path of a net being routed in the 2nd
-   stage, the ripped-up net is added to a list
-   in the routed net so that it will not be
-   ripped up to make way for that net again.
-   This prevents infinite looping in the 2nd
-   stage.
+10. When a net is ripped up to remove it from the path of a net being routed in the 2nd stage, the ripped-up net is added to a list in the routed net so that it will not be ripped up to make way for that net again. This prevents infinite looping in the 2nd stage.
 
-11. Clean up the DEF file reader with a proper
-   parser ported from magic, like the LEF file
-   reader was.
+11. Clean up the DEF file reader with a proper parser ported from magic, like the LEF file reader was.
 
-12. Add a Tcl/Tk command-line interface for
-   interactive routing and display.
+12. Add a Tcl/Tk command-line interface for interactive routing and display.
 
-13. Recast the config file as a set of Tcl
-   command-line commands to execute.  All
-   original setup options have corresponding
-   commands in the Tcl interpreter.  The
-   config file and its parsing is retained
-   for backwards compatibility.
+13. Recast the config file as a set of Tcl command-line commands to execute.  All original setup options have corresponding commands in the Tcl interpreter.  The config file and its parsing is retained for backwards compatibility.
 
-14. Vias can be larger than metal routes.  Need
-   to identify positions as obstructions to
-   vias only.
+14. Vias can be larger than metal routes.  Need to identify positions as obstructions to vias only.
 
-15. Make Euclidean geometry checks instead of
-   Manhattan geometry checks.
+15. Make Euclidean geometry checks instead of Manhattan geometry checks.
 
 ----------------------------------------------
 Development to do:
 ----------------------------------------------
 
-1. Handle nets in the input DEF file that are
-   already routed by adding them as obstructions
-   to the route grid.
+1. Handle nets in the input DEF file that are already routed by adding them as obstructions to the route grid.
 
-2. Final stage should rip up and reroute each
-   network in turn, with all crossover costing
-   removed, so that each route will be cleaner
-   (to be done by Tcl commands acting on
-   individual routes.  Can be run as a simple
-   Tcl script).
+2. Final stage should rip up and reroute each network in turn, with all crossover costing removed, so that each route will be cleaner (to be done by Tcl commands acting on individual routes.  Can be run as a simple Tcl script).
 
-3. Need to normalize the segment and jog costs to
-   the track pitch, so that costs do not give
-   preference to the route layers with the widest
-   track pitch.
+3. Need to normalize the segment and jog costs to the track pitch, so that costs do not give preference to the route layers with the widest track pitch.
 
-4. Need a command-line switch (and/or Tcl
-   command) to disable the specialnets section.
+4. Need a command-line switch (and/or Tcl command) to disable the specialnets section.
 
-5. Sort trunk lines so no trunk lines overlap
-   prior to routing.
+5. Sort trunk lines so no trunk lines overlap prior to routing.
 
-6. Apply costing to terminals, giving higher cost
-   to terminals with offsets and the lowest cost
-   to simple on-grid contacts.
+6. Apply costing to terminals, giving higher cost to terminals with offsets and the lowest cost to simple on-grid contacts.
 
 -------------------------------------------------
